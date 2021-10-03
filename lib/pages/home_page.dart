@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_one/widgets/emoji_dict.dart';
+import 'package:flutter_one/widgets/blackjack.dart';
 import 'package:flutter_one/widgets/louis.widget.dart';
 import 'package:flutter_one/widgets/marius.dart';
 import 'package:flutter_one/widgets/tao.dart';
@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    MyEmojiDictionary(),
+    MyBlackjack(),
     LouisWidget(),
     MariusWidget(),
     TaoWidget(),
@@ -39,8 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.emoji_emotions_outlined),
-            label: 'Emoji',
+            icon: Icon(Icons.casino_outlined),
+            label: 'Blackjack',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.camera),
