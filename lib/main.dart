@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "SmartSoccer",
+      title: "GamblingApp",
       theme: ThemeData(
           primaryColor: const Color(0xFF202020),
           scaffoldBackgroundColor: const Color(0xFF171819),
