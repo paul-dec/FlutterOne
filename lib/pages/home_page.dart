@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.camera),
-            label: 'Louis',
+            label: 'Yahtzee',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
