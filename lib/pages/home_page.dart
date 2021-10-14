@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_one/widgets/blackjack.dart';
 import 'package:flutter_one/widgets/louis.widget.dart';
-import 'package:flutter_one/widgets/marius.dart';
+import 'package:flutter_one/widgets/slotmachine.dart';
 import 'package:flutter_one/widgets/tao.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _pages = <Widget>[
     MyBlackjack(),
     LouisWidget(),
-    MariusWidget(),
+    MySlotMachine(),
     TaoWidget(),
   ];
 
@@ -47,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Yahtzee',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.chat),
-            label: 'Marius',
+            icon: Icon(Icons.filter_7_outlined),
+            label: 'Slot',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
