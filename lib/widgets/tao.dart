@@ -105,11 +105,11 @@ class _TaoWidgetState extends State<TaoWidget> {
             ],
           ),
           SizedBox(height: 50,),
-              Spacer(),
-              imageFile != null ? Image.file(imageFile!, width: 300, height: 300,) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
-              RaisedButton(onPressed: () {
-                _showChoiceDialog(context);
-              }, child: Text("Select Image"),),
+          Spacer(),
+          imageFile != null ? Image.file(imageFile!, width: 300, height: 300,) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
+          RaisedButton(onPressed: () {
+            _showChoiceDialog(context);
+            }, child: Text("Select Image"),),
           SizedBox(height: 200,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
