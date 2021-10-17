@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:math';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class MySlotMachine extends StatefulWidget {
@@ -21,6 +22,26 @@ class _MySlotMachineState extends State<MySlotMachine> {
   String errorMsg = '';
   final myController = TextEditingController();
 
+
+  @override
+  initState() {
+    setupVariable();
+  }
+
+  Future<void> setupVariable() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? counter;
+    if (prefs.getInt('counter') != null) {
+      counter = prefs.getInt('counter');
+    } else {
+      prefs.setInt('counter', myScore);
+      counter = myScore;
+    }
+    setState(() {
+      myScore = int.parse(counter.toString());
+    });
+  }
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -33,7 +54,13 @@ class _MySlotMachineState extends State<MySlotMachine> {
   static const winAudioPath = "win.mp3";
   static const spinAudioPath = "spin.mp3";
 
-  void _spinMachine() {
+  Future<void> _spinMachine() async {
+    if (myController.text == null || myController.text == "") {
+      setState(() {
+        errorMsg = 'Please add a bet';
+      });
+      return;
+    }
     setState(() {
       bet = int.parse(myController.text);
     });
@@ -52,21 +79,27 @@ class _MySlotMachineState extends State<MySlotMachine> {
       thirdNumber = rng.nextInt(10);
       if(firstNumber == secondNumber && secondNumber == thirdNumber) {
         player.play(jackpotAudioPath);
+        final prefs = await SharedPreferences.getInstance();
         setState(() {
           myScore = myScore + bet * 100;
+          prefs.setInt('counter', myScore);
           errorMsg = 'Jackpot !!!';
         });
       } else if(firstNumber == secondNumber ||
           secondNumber == thirdNumber ||
           thirdNumber == firstNumber) {
         player.play(winAudioPath);
+        final prefs = await SharedPreferences.getInstance();
         setState(() {
           myScore = myScore + bet * 10;
+          prefs.setInt('counter', myScore);
           errorMsg = 'You won !';
         });
       } else {
+        final prefs = await SharedPreferences.getInstance();
         setState(() {
           myScore = myScore - bet;
+          prefs.setInt('counter', myScore);
           errorMsg = 'You loose';
         });
         // you loose

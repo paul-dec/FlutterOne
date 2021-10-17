@@ -52,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
-            label: 'Tao'
+            label: 'Profile'
           )
         ],
         currentIndex: _selectedIndex,

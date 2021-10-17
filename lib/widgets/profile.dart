@@ -1,11 +1,11 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileWidget extends StatefulWidget {
   const ProfileWidget({Key? key}) : super(key: key);
@@ -15,8 +15,34 @@ class ProfileWidget extends StatefulWidget {
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
-
   File? imageFile;
+  int myScore = 100;
+
+  @override
+  initState() {
+    setupVariable();
+  }
+
+  Future<void> setupVariable() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? counter;
+    if(prefs.getInt('counter') != null) {
+      counter = prefs.getInt('counter');
+    } else {
+      prefs.setInt('counter', myScore);
+      counter = myScore;
+    }
+    final pictureFile = await _getOldPicture();
+    if (pictureFile.existsSync() == true) {
+      setState(() {
+        imageFile = pictureFile;
+      });
+    }
+
+    setState(() {
+      myScore = int.parse(counter.toString());
+    });
+  }
 
   Future _openGallery(BuildContext context) async {
     try {
@@ -31,11 +57,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     Navigator.of(context).pop();
   }
 
+  Future<File> _getOldPicture() async {
+    final directory = await getApplicationDocumentsDirectory();
+    const name = 'ProfilePicture.jpg';
+    final image = File('${directory.path}/$name');
+    return File(image.path);
+  }
+
   Future<File> saveImage(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-    final name = basename(imagePath);
+    const name = 'ProfilePicture.jpg';
     final image = File('${directory.path}/$name');
-
     return File(imagePath).copy(image.path);
   }
 
@@ -96,9 +128,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
           const SizedBox(height: 60,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              SizedBox(width: 15),
-              Text("Gold Coins", style: TextStyle(color: Colors.white),),
+            children: [
+              Text("Gold Coins: " + myScore.toString(), style: const TextStyle(color: Colors.white),),
             ],
           ),
         ],
