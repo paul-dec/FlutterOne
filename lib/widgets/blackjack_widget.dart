@@ -38,7 +38,8 @@ class BlackJackWidget extends StatelessWidget {
                 child: const Text("Reset"),
               ),
             ],
-          )
+          ),
+          Text("My coins: " + blackJackData.myMoney.toString(), style: const TextStyle(color: Colors.white),),
         ],
       ),
     );

@@ -5,4 +5,6 @@ class BlackJackData {
 
   int iaScore = 0;
   int myScore = 0;
+
+  int myMoney = 100;
 }

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_one/components/blackjack_components.dart';
+import 'package:flutter_one/components/slotmachine_component.dart';
 import 'package:flutter_one/components/yahtzee_component.dart';
-import 'package:flutter_one/widgets/yahtzee_widget.dart';
-import 'package:flutter_one/widgets/slotmachine.dart';
 import 'package:flutter_one/widgets/profile.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -18,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   static const List<Widget> _pages = <Widget>[
     BlackJackComponent(),
     YahtzeeComponent(),
-    MySlotMachine(),
+    SlotMachineComponent(),
     ProfileWidget(),
   ];
 
