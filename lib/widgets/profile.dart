@@ -7,35 +7,26 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 
-class TaoWidget extends StatefulWidget {
-  const TaoWidget({Key? key}) : super(key: key);
+class ProfileWidget extends StatefulWidget {
+  const ProfileWidget({Key? key}) : super(key: key);
 
   @override
-  _TaoWidgetState createState() => _TaoWidgetState();
+  _ProfileWidgetState createState() => _ProfileWidgetState();
 }
 
-void _Statistics () {
-  return;
-}
-
-void rule_tips() {
-
-  return;
-}
-
-class _TaoWidgetState extends State<TaoWidget> {
+class _ProfileWidgetState extends State<ProfileWidget> {
 
   File? imageFile;
 
-  Future _openGallary(BuildContext context) async {
+  Future _openGallery(BuildContext context) async {
     try {
       final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picture == null) return;
 
-      final picturefile = await saveImage(picture.path);
-      setState(() => this.imageFile = picturefile);
+      final pictureFile = await saveImage(picture.path);
+      setState(() => imageFile = pictureFile);
     } on PlatformException catch(e) {
-      print('Fail to pick image: $e');
+      // print('Fail to pick image: $e');
     }
     Navigator.of(context).pop();
   }
@@ -53,10 +44,10 @@ class _TaoWidgetState extends State<TaoWidget> {
       final picture = await ImagePicker().pickImage(source: ImageSource.camera);
       if (picture == null) return;
 
-      final picturefile = File(picture.path);
-      setState(() => this.imageFile = picturefile);
+      final pictureFile = File(picture.path);
+      setState(() => imageFile = pictureFile);
     } on PlatformException catch(e) {
-      print('Fail to pick image: $e');
+      // print('Fail to pick image: $e');
     }
     Navigator.of(context).pop();
   }
@@ -64,19 +55,19 @@ class _TaoWidgetState extends State<TaoWidget> {
   Future<void> _showChoiceDialog(BuildContext context) {
     return showDialog(context: context,builder: (BuildContext context) {
       return AlertDialog(
-        title: Text("Make a choice"),
+        title: const Text("Make a choice"),
         content: SingleChildScrollView(
           child: ListBody(
             children: [
               GestureDetector(
-                child: Text("Gallary"),
+                child: const Text("Gallery"),
                 onTap: () {
-                  _openGallary(context);
+                  _openGallery(context);
                 },
               ),
-              Padding(padding: EdgeInsets.all(8.0)),
+              const Padding(padding: EdgeInsets.all(8.0)),
               GestureDetector(
-                child: Text("Camera"),
+                child: const Text("Camera"),
                 onTap: () {
                   _openCamera(context);
                 },
@@ -94,39 +85,20 @@ class _TaoWidgetState extends State<TaoWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Row(
-            children: [
-              SizedBox(width: 30,),
-              Text("Profile", style: TextStyle(fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),),
-              Expanded(child: Container()),
-              Icon(Icons.home, size: 40, color: Colors.white,),
-              SizedBox(width: 30,)
-            ],
-          ),
-          SizedBox(height: 50,),
+          const SizedBox(height: 50,),
           Container(
             child: imageFile != null ? ClipOval(child: Image.file(imageFile!, width: 200, height: 200, fit: BoxFit.cover)) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
           ),
-          SizedBox(height: 20,),
-          RaisedButton(onPressed: () {
+          const SizedBox(height: 20,),
+          ElevatedButton(onPressed: () {
             _showChoiceDialog(context);
-            }, child: Text("Select Image"),),
-          SizedBox(height: 60,),
+          }, child: const Text("Select Image"),),
+          const SizedBox(height: 60,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
               SizedBox(width: 15),
               Text("Gold Coins", style: TextStyle(color: Colors.white),),
-              SizedBox(width: 50),
-              TextButton(
-                onPressed: _Statistics,
-                child: Text("Statistics"),
-              ),
-              SizedBox(width: 50),
-              TextButton(
-                onPressed: rule_tips,
-                child: Text("Rules and Tips"),
-              ),
             ],
           ),
         ],

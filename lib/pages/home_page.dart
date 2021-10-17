@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_one/widgets/blackjack.dart';
 import 'package:flutter_one/widgets/louis.widget.dart';
 import 'package:flutter_one/widgets/slotmachine.dart';
-import 'package:flutter_one/widgets/tao.dart';
+import 'package:flutter_one/widgets/profile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
     MyBlackjack(),
     LouisWidget(),
     MySlotMachine(),
-    TaoWidget(),
+    ProfileWidget(),
   ];
 
   void _onItemTapped(int index) {
