@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
 
 class TaoWidget extends StatefulWidget {
   const TaoWidget({Key? key}) : super(key: key);
@@ -26,11 +28,11 @@ class _TaoWidgetState extends State<TaoWidget> {
 
   Future _openGallary(BuildContext context) async {
     try {
-      final picture = await ImagePicker().pickImage(
-          source: ImageSource.gallery);
+      final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picture == null) return;
 
-      final picturefile = File(picture.path);
+      // final picturefile = File(picture.path);
+      final picturefile = await saveImage(picture.path);
       setState(() => this.imageFile = picturefile);
     } on PlatformException catch(e) {
       print('Fail to pick image: $e');
@@ -38,10 +40,17 @@ class _TaoWidgetState extends State<TaoWidget> {
     Navigator.of(context).pop();
   }
 
+  Future<File> saveImage(String imagePath) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final name = basename(imagePath);
+    final image = File('${directory.path}/$name');
+
+    return File(imagePath).copy(image.path);
+  }
+
   Future _openCamera(BuildContext context) async {
     try {
-      final picture = await ImagePicker().pickImage(
-          source: ImageSource.camera);
+      final picture = await ImagePicker().pickImage(source: ImageSource.camera);
       if (picture == null) return;
 
       final picturefile = File(picture.path);
@@ -79,21 +88,11 @@ class _TaoWidgetState extends State<TaoWidget> {
     });
   }
 
-  // Widget _decideImageView() {
-  //   if (imageFile == null) {
-  //     return Text("No image choice");
-  //   } else {
-  //     Image.file(imageFile, width: 600, height: 600,);
-  //   }
-  //   return Image.file(imageFile, width: 600, height: 600,);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Row(
             children: [
@@ -105,15 +104,18 @@ class _TaoWidgetState extends State<TaoWidget> {
             ],
           ),
           SizedBox(height: 50,),
-          Spacer(),
-          imageFile != null ? Image.file(imageFile!, width: 300, height: 300,) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
+          Container(
+            child: imageFile != null ? ClipOval(child: Image.file(imageFile!, width: 200, height: 200, fit: BoxFit.cover)) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
+          ),
+          SizedBox(height: 20,),
           RaisedButton(onPressed: () {
             _showChoiceDialog(context);
             }, child: Text("Select Image"),),
-          SizedBox(height: 200,),
+          SizedBox(height: 60,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
+              SizedBox(width: 15),
               Text("Gold Coins", style: TextStyle(color: Colors.white),),
               SizedBox(width: 50),
               TextButton(
@@ -126,7 +128,7 @@ class _TaoWidgetState extends State<TaoWidget> {
                 child: Text("Rules and Tips"),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
