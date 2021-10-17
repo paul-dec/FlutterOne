@@ -44,13 +44,15 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     });
   }
 
-  Future _openGallery(BuildContext context) async {
+  void _openGallery(BuildContext context) async {
     try {
       final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picture == null) return;
 
-      final pictureFile = await saveImage(picture.path);
-      setState(() => imageFile = pictureFile);
+      File pictureFile = await saveImage(picture.path);
+      setState(() {
+        imageFile = pictureFile;
+      });
     } on PlatformException catch(e) {
       // print('Fail to pick image: $e');
     }
@@ -66,7 +68,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   Future<File> saveImage(String imagePath) async {
     final directory = await getApplicationDocumentsDirectory();
-    const name = 'ProfilePicture.jpg';
+    final name = basename(imagePath);
     final image = File('${directory.path}/$name');
     return File(imagePath).copy(image.path);
   }
