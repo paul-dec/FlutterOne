@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_one/widgets/blackjack.dart';
+import 'package:flutter_one/components/blackjack_components.dart';
 import 'package:flutter_one/widgets/louis.widget.dart';
 import 'package:flutter_one/widgets/slotmachine.dart';
 import 'package:flutter_one/widgets/profile.dart';
@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    MyBlackjack(),
+    BlackJackComponent(),
     LouisWidget(),
     MySlotMachine(),
     ProfileWidget(),
@@ -39,19 +39,19 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.casino_outlined),
+            icon: Icon(Icons.dashboard_outlined),
             label: 'Blackjack',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
+            icon: Icon(Icons.casino_outlined),
             label: 'Yahtzee',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.filter_7_outlined),
+            icon: Icon(Icons.attach_money_outlined),
             label: 'Slot',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
+            icon: Icon(Icons.person_outline),
             label: 'Profile'
           )
         ],
