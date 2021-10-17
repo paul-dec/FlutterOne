@@ -2,19 +2,20 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_one/widgets/profile_widget.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
+class ProfileComponent extends StatefulWidget {
+  const ProfileComponent({Key? key}) : super(key: key);
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  _ProfileComponentState createState() => _ProfileComponentState();
 }
 
-class _ProfileWidgetState extends State<ProfileWidget> {
+class _ProfileComponentState extends State<ProfileComponent> {
   File? imageFile;
   int myScore = 100;
 
@@ -115,27 +116,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(height: 50,),
-          Container(
-            child: imageFile != null ? ClipOval(child: Image.file(imageFile!, width: 200, height: 200, fit: BoxFit.cover)) : Image.asset("assets/user.png", fit: BoxFit.cover,width: 200, height: 200, color: Colors.white,),
-          ),
-          const SizedBox(height: 20,),
-          ElevatedButton(onPressed: () {
-            _showChoiceDialog(context);
-          }, child: const Text("Select Image"),),
-          const SizedBox(height: 60,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text("Gold Coins: " + myScore.toString(), style: const TextStyle(color: Colors.white),),
-            ],
-          ),
-        ],
-      ),
-    );
+    return ProfileWidget(imageFile: imageFile, myScore: myScore, showChoiceDialog: _showChoiceDialog, context: context);
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_one/components/blackjack_components.dart';
+import 'package:flutter_one/components/profile_component.dart';
 import 'package:flutter_one/components/slotmachine_component.dart';
 import 'package:flutter_one/components/yahtzee_component.dart';
-import 'package:flutter_one/widgets/profile.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
     BlackJackComponent(),
     YahtzeeComponent(),
     SlotMachineComponent(),
-    ProfileWidget(),
+    ProfileComponent(),
   ];
 
   void _onItemTapped(int index) {
