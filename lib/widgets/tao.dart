@@ -19,6 +19,7 @@ void _Statistics () {
 }
 
 void rule_tips() {
+
   return;
 }
 
@@ -31,7 +32,6 @@ class _TaoWidgetState extends State<TaoWidget> {
       final picture = await ImagePicker().pickImage(source: ImageSource.gallery);
       if (picture == null) return;
 
-      // final picturefile = File(picture.path);
       final picturefile = await saveImage(picture.path);
       setState(() => this.imageFile = picturefile);
     } on PlatformException catch(e) {
